@@ -1,0 +1,36 @@
+[gd_scene load_steps=4 format=3 uid="uid://bc54xhouctwxn"]
+
+[ext_resource type="Script" path="res://items/pick_up.gd" id="1_olme1"]
+[ext_resource type="Texture2D" uid="uid://bivqx6pn81avx" path="res://items/item_texture.tres" id="2_wiyuk"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_6hxop"]
+radius = 0.219735
+
+[node name="pick_up" type="RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.215928, 0)
+collision_layer = 0
+lock_rotation = true
+script = ExtResource("1_olme1")
+
+[node name="area3d" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="collision" type="CollisionShape3D" parent="area3d"]
+shape = SubResource("SphereShape3D_6hxop")
+
+[node name="sprite3d" type="Sprite3D" parent="."]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+texture_filter = 2
+texture = ExtResource("2_wiyuk")
+
+[node name="collision" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_6hxop")
+
+[node name="quantity" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.12838, -0.00583733)
+sorting_offset = 154.78
+billboard = 1
+text = "x99"
+
+[connection signal="body_entered" from="area3d" to="." method="_on_area_3d_body_entered"]

@@ -1,0 +1,71 @@
+[gd_scene load_steps=3 format=3 uid="uid://1rkjtq300evc"]
+
+[ext_resource type="PackedScene" uid="uid://bdummgsiwj4ru" path="res://addons/inventory_system/themes/default/inventory.tscn" id="1_w68p6"]
+[ext_resource type="PackedScene" uid="uid://dibjrgjqg8p0u" path="res://addons/inventory_system/themes/default/slot.tscn" id="2_digxa"]
+
+[node name="example_inventory" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="panel" parent="." instance=ExtResource("1_w68p6")]
+layout_mode = 0
+
+[node name="panel_margin_grid#slot" parent="panel/margin/item_grid" index="0" instance=ExtResource("2_digxa")]
+layout_mode = 2
+
+[node name="panel_margin_grid#slot2" parent="panel/margin/item_grid" index="1" instance=ExtResource("2_digxa")]
+layout_mode = 2
+
+[node name="panel_margin_grid#slot3" parent="panel/margin/item_grid" index="2" instance=ExtResource("2_digxa")]
+layout_mode = 2
+
+[node name="panel_margin_grid#slot4" parent="panel/margin/item_grid" index="3" instance=ExtResource("2_digxa")]
+layout_mode = 2
+
+[node name="panel_margin_grid#slot5" parent="panel/margin/item_grid" index="4" instance=ExtResource("2_digxa")]
+layout_mode = 2
+
+[node name="panel_margin_grid#slot6" parent="panel/margin/item_grid" index="5" instance=ExtResource("2_digxa")]
+layout_mode = 2
+
+[node name="panel_margin_grid#slot7" parent="panel/margin/item_grid" index="6" instance=ExtResource("2_digxa")]
+layout_mode = 2
+
+[node name="panel_margin_grid#slot8" parent="panel/margin/item_grid" index="7" instance=ExtResource("2_digxa")]
+layout_mode = 2
+
+[node name="panel_margin_grid#slot9" parent="panel/margin/item_grid" index="8" instance=ExtResource("2_digxa")]
+layout_mode = 2
+
+[node name="panel_margin_grid#slot10" parent="panel/margin/item_grid" index="9" instance=ExtResource("2_digxa")]
+layout_mode = 2
+
+[node name="panel_margin_grid#slot11" parent="panel/margin/item_grid" index="10" instance=ExtResource("2_digxa")]
+layout_mode = 2
+
+[node name="panel_margin_grid#slot12" parent="panel/margin/item_grid" index="11" instance=ExtResource("2_digxa")]
+layout_mode = 2
+
+[node name="panel_margin_grid#slot13" parent="panel/margin/item_grid" index="12" instance=ExtResource("2_digxa")]
+layout_mode = 2
+
+[node name="panel_margin_grid#slot14" parent="panel/margin/item_grid" index="13" instance=ExtResource("2_digxa")]
+layout_mode = 2
+
+[node name="panel_margin_grid#slot15" parent="panel/margin/item_grid" index="14" instance=ExtResource("2_digxa")]
+layout_mode = 2
+
+[node name="panel_margin_grid#slot16" parent="panel/margin/item_grid" index="15" instance=ExtResource("2_digxa")]
+layout_mode = 2
+
+[node name="panel_margin_grid#slot17" parent="panel/margin/item_grid" index="16" instance=ExtResource("2_digxa")]
+layout_mode = 2
+
+[node name="panel_margin_grid#slot18" parent="panel/margin/item_grid" index="17" instance=ExtResource("2_digxa")]
+layout_mode = 2
+
+[editable path="panel"]

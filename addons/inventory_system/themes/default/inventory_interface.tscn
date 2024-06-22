@@ -1,0 +1,54 @@
+[gd_scene load_steps=4 format=3 uid="uid://bkn7mtnso3fwi"]
+
+[ext_resource type="Script" path="res://addons/inventory_system/inventory/inventory_interface.gd" id="1_3yqi5"]
+[ext_resource type="PackedScene" uid="uid://bdummgsiwj4ru" path="res://addons/inventory_system/themes/default/inventory.tscn" id="2_frm8a"]
+[ext_resource type="PackedScene" uid="uid://dibjrgjqg8p0u" path="res://addons/inventory_system/themes/default/slot.tscn" id="3_vl1wr"]
+
+[node name="inventory_interface" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_3yqi5")
+
+[node name="player_inventory" parent="." instance=ExtResource("2_frm8a")]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -58.0
+offset_right = 20.0
+offset_bottom = -18.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="external_inventory" parent="." instance=ExtResource("2_frm8a")]
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -240.0
+offset_right = 20.0
+offset_bottom = -200.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="grabbed_slot" parent="." instance=ExtResource("3_vl1wr")]
+visible = false
+modulate = Color(1, 1, 1, 0.498039)
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 64.0
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
