@@ -1,20 +1,22 @@
-[gd_scene load_steps=6 format=3 uid="uid://5cd20lpgj3cp"]
+[gd_scene load_steps=8 format=3 uid="uid://5cd20lpgj3cp"]
 
 [ext_resource type="Script" path="res://chest.gd" id="1_h2y3f"]
-[ext_resource type="Script" path="res://addons/inventory_system/item/inventory_data.gd" id="2_b7mrx"]
-
-[sub_resource type="Resource" id="Resource_rrk44"]
-script = ExtResource("2_b7mrx")
-slot_datas = Array[Resource("res://addons/inventory_system/inventory/slot_data.gd")]([null, null, null, null, null, null])
+[ext_resource type="Script" path="res://addons/inventory_system/nodes/inventory.gd" id="2_mict3"]
+[ext_resource type="Resource" uid="uid://dvx5kthg05osh" path="res://items/sword.tres" id="3_ras8m"]
+[ext_resource type="Script" path="res://addons/inventory_system/data/slot_data.gd" id="4_tx7jm"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_w0ft0"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ywuok"]
 
+[sub_resource type="Resource" id="Resource_c0gkk"]
+script = ExtResource("4_tx7jm")
+item_data = ExtResource("3_ras8m")
+quantity = 1
+
 [node name="chest" type="StaticBody3D" groups=["external_inventory"]]
 collision_layer = 5
 script = ExtResource("1_h2y3f")
-inventory_data = SubResource("Resource_rrk44")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 0.5, 2.08165e-12)
@@ -23,3 +25,7 @@ mesh = SubResource("BoxMesh_w0ft0")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 0.5, 2.08165e-12)
 shape = SubResource("BoxShape3D_ywuok")
+
+[node name="inventory" type="CanvasLayer" parent="."]
+script = ExtResource("2_mict3")
+slot_datas = Array[ExtResource("4_tx7jm")]([SubResource("Resource_c0gkk"), null, null, null, null, null, null])

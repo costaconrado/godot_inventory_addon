@@ -2,7 +2,8 @@ extends StaticBody3D
 
 signal toggle_inventory(external_inventory_owner)
 
-@export var inventory_data: InventoryData
+@onready var inventory: Inventory = $inventory
+
 
 func player_interact() -> void:
-	toggle_inventory.emit(self)
+	inventory.toggle_inventory.emit(self)

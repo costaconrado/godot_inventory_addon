@@ -1,4 +1,5 @@
 extends Control
+class_name InventoryInterface
 
 signal drop_slot_data(slot_data: SlotData)
 
@@ -8,7 +9,9 @@ signal drop_slot_data(slot_data: SlotData)
 
 var grabbed_slot_data: SlotData
 var external_inventory_owner
-var inventory_data
+var inventory_data: Inventory
+var selected_slot_index: int
+var _player: Node
 
 @onready var player_inventory: PanelContainer = $player_inventory
 @onready var external_inventory: PanelContainer = $external_inventory
@@ -19,6 +22,9 @@ func _ready() -> void:
 	visibility_changed.connect(_on_visibility_changed)
 	gui_input.connect(_on_gui_input)
 
+	inventory_data = InventoryRegistry.get_inventories(_player)[0]
+	player_inventory.set_inventory_data(inventory_data)
+	inventory_data.inventory_interact.connect(on_inventory_interact)
 
 func _physics_process(_delta) -> void:
 	if grabbed_slot.visible:
@@ -34,15 +40,9 @@ func update_grabbed_slot() -> void:
 		grabbed_slot.hide()
 
 
-func set_player_inventory_data(_inventory_data: InventoryData) -> void:
-	_inventory_data.inventory_interact.connect(on_inventory_interact)
-	player_inventory.set_inventory_data(_inventory_data)
-	inventory_data = _inventory_data
-
-
 func set_external_inventory(_external_inventory_owner) -> void:
 	external_inventory_owner = _external_inventory_owner
-	var inventory_data = external_inventory_owner.inventory_data
+	var inventory_data = InventoryRegistry.get_inventories(external_inventory_owner)[0]
 	
 	inventory_data.inventory_interact.connect(on_inventory_interact)
 	external_inventory.set_inventory_data(inventory_data)
@@ -52,7 +52,7 @@ func set_external_inventory(_external_inventory_owner) -> void:
 
 func clear_external_inventory() -> void:
 	if external_inventory_owner:
-		var inventory_data = external_inventory_owner.inventory_data
+		var inventory_data = InventoryRegistry.get_inventories(external_inventory_owner)[0]
 		
 		inventory_data.inventory_interact.disconnect(on_inventory_interact)
 		external_inventory.clear_inventory_data(inventory_data)
@@ -61,23 +61,24 @@ func clear_external_inventory() -> void:
 		external_inventory_owner = null
 
 
-func on_inventory_interact(inventory_data: InventoryData, index: int, button: int) -> void:
+func on_inventory_interact(inventory_data: Inventory, index: int, button: int, is_double_click: bool) -> void:
 	var quantity_type = SlotData.QuantityType.SINGLE
 
 	if Input.is_key_pressed(KEY_SHIFT):
 		quantity_type = SlotData.QuantityType.HALF
 	
-	match [grabbed_slot_data, button]:
-		[null, MOUSE_BUTTON_LEFT]:
-			grabbed_slot_data = inventory_data.grab_slot_data(index, SlotData.QuantityType.TOTAL)
-		[_, MOUSE_BUTTON_LEFT]:
-			grabbed_slot_data = inventory_data.drop_slot_data(grabbed_slot_data, index, SlotData.QuantityType.TOTAL)
-		[null, MOUSE_BUTTON_RIGHT]:
-			grabbed_slot_data = inventory_data.grab_slot_data(index, quantity_type)
-		[_, MOUSE_BUTTON_RIGHT]:
-			grabbed_slot_data = inventory_data.drop_slot_data(grabbed_slot_data, index, quantity_type)
+	if not is_double_click:
+		match [grabbed_slot_data, button]:
+			[null, MOUSE_BUTTON_LEFT]:
+				grabbed_slot_data = inventory_data.grab_slot_data(index, SlotData.QuantityType.TOTAL)
+			[_, MOUSE_BUTTON_LEFT]:
+				grabbed_slot_data = inventory_data.drop_slot_data(grabbed_slot_data, index, SlotData.QuantityType.TOTAL)
+			[null, MOUSE_BUTTON_RIGHT]:
+				grabbed_slot_data = inventory_data.grab_slot_data(index, quantity_type)
+			[_, MOUSE_BUTTON_RIGHT]:
+				grabbed_slot_data = inventory_data.drop_slot_data(grabbed_slot_data, index, quantity_type)
 
-	update_grabbed_slot()
+		update_grabbed_slot()
 
 
 func _on_gui_input(event:InputEvent):
@@ -88,7 +89,6 @@ func _on_gui_input(event:InputEvent):
 			quantity_type = SlotData.QuantityType.HALF
 		match event.button_index:
 			MOUSE_BUTTON_LEFT:
-				print(grabbed_slot_data.item_data.name)
 				drop_slot_data.emit(grabbed_slot_data)
 				grabbed_slot_data = null
 			MOUSE_BUTTON_RIGHT:

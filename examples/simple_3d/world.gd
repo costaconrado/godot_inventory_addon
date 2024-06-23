@@ -6,16 +6,17 @@ const pick_up = preload("res://items/pick_up.tscn")
 @onready var inventory_manager = $ui/inventory_manager
 
 func _ready() -> void:
-	player.toggle_inventory.connect(toggle_inventory_interface)
-	inventory_manager.interface.set_player_inventory_data(player.inventory_data)
+	if inventory_manager.interface.visible:
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	else:
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
-	for node in get_tree().get_nodes_in_group("external_inventory"):
-		node.toggle_inventory.connect(toggle_inventory_interface)
-	
-		if inventory_manager.interface.visible:
-			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-		else:
-			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+
+func on_inventory_visibility_changed(is_visible: bool):
+	if is_visible:
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	else:
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 
 func toggle_inventory_interface(external_inventory_owner = null) -> void:

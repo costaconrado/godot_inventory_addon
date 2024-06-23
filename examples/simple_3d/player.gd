@@ -1,12 +1,9 @@
 extends CharacterBody3D
 
-@export var inventory_data: InventoryData
-
-signal toggle_inventory()
-
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 @onready var camera: Camera3D = $camera3d
+@onready var inventory: Inventory = $inventory
 @onready var interact_ray: RayCast3D = $camera3d/interact_ray
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -30,7 +27,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		interact()
 
 	if Input.is_action_just_pressed("inventory"):
-		toggle_inventory.emit()
+		inventory.toggle_inventory.emit()
 
 
 func _physics_process(delta):

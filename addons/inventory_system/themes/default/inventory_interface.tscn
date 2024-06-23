@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://bkn7mtnso3fwi"]
 
-[ext_resource type="Script" path="res://addons/inventory_system/inventory/inventory_interface.gd" id="1_3yqi5"]
+[ext_resource type="Script" path="res://addons/inventory_system/interface/inventory_interface.gd" id="1_3yqi5"]
 [ext_resource type="PackedScene" uid="uid://bdummgsiwj4ru" path="res://addons/inventory_system/themes/default/inventory.tscn" id="2_frm8a"]
 [ext_resource type="PackedScene" uid="uid://dibjrgjqg8p0u" path="res://addons/inventory_system/themes/default/slot.tscn" id="3_vl1wr"]
 
@@ -49,6 +49,3 @@ self_modulate = Color(1, 1, 1, 0)
 layout_mode = 0
 offset_right = 64.0
 offset_bottom = 64.0
-
-[connection signal="gui_input" from="." to="." method="_on_gui_input"]
-[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]

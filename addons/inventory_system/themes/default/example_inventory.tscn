@@ -1,7 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://1rkjtq300evc"]
+[gd_scene load_steps=4 format=3 uid="uid://1rkjtq300evc"]
 
 [ext_resource type="PackedScene" uid="uid://bdummgsiwj4ru" path="res://addons/inventory_system/themes/default/inventory.tscn" id="1_w68p6"]
 [ext_resource type="PackedScene" uid="uid://dibjrgjqg8p0u" path="res://addons/inventory_system/themes/default/slot.tscn" id="2_digxa"]
+
+[sub_resource type="Theme" id="Theme_37mc8"]
+MarginContainer/constants/margin_bottom = 0
+MarginContainer/constants/margin_left = 0
+MarginContainer/constants/margin_right = 0
+MarginContainer/constants/margin_top = 0
 
 [node name="example_inventory" type="Control"]
 layout_mode = 3
@@ -16,6 +22,7 @@ layout_mode = 0
 
 [node name="panel_margin_grid#slot" parent="panel/margin/item_grid" index="0" instance=ExtResource("2_digxa")]
 layout_mode = 2
+theme = SubResource("Theme_37mc8")
 
 [node name="panel_margin_grid#slot2" parent="panel/margin/item_grid" index="1" instance=ExtResource("2_digxa")]
 layout_mode = 2
